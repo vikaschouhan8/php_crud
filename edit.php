@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /*EDIT.PHP Allows user to edit specific entry in database*/
 // creates the edit record form
 // since this form is used multiple times in this file, I have made it a function that is easily reusable
@@ -13,13 +13,15 @@ function renderForm($id, $firstname, $lastname, $error)
             <title>Edit Record</title>
         </head>
         <body>
+        <ul>
+            <li><a href="index.php">Home</a></li>	
+        </ul>
             <?php
             // if there are any errors, display them
             if ($error != ''){
             echo '<div style="padding:4px; border:1px solid red; color:red;">'.$error.'</div>';
             }
             ?>
-
             <form action="" method="post">
                 <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                 <div>
@@ -60,7 +62,7 @@ if (isset($_POST['submit']))
             mysqli_query($connection, "UPDATE players SET firstname='$firstname', lastname='$lastname' WHERE id='$id'")
             or die(mysqli_error());
             // once saved, redirect back to the view page
-            header("Location: view.php");
+            header("Location: show.php");
         }
     }
     else{
